@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Test_app_1.Views.RegistrationPage"
+             Shell.FlyoutBehavior="Disabled">
+    <ContentPage.Content>
+        <StackLayout Padding="40" VerticalOptions="Center"
+                     HorizontalOptions="FillAndExpand">
+            <Entry Placeholder="Username" TextColor="{StaticResource Secondary}" />
+            <Entry Placeholder="Email" TextColor="{StaticResource Secondary}"/>
+            <Entry IsPassword="True" Placeholder="Password" TextColor="{StaticResource Secondary}"/>
+            <Entry IsPassword="True" Placeholder="Repeat password" TextColor="{StaticResource Secondary}"/>
+
+            <Button Text="Register" Clicked="Button_Clicked" BackgroundColor="{StaticResource Primary}" TextColor="White"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

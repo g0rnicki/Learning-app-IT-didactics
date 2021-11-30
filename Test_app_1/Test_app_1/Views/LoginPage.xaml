@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Test_app_1.Views.LoginPage"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+        <StackLayout Padding="40" VerticalOptions="Center"
+                     HorizontalOptions="FillAndExpand">
+            <Entry Placeholder="Username" TextColor="{StaticResource Secondary}"/>
+            <Entry IsPassword="True" Placeholder="Password" TextColor="{StaticResource Secondary}"/>
+            <Button Text="Login" Clicked="Button_Clicked" BackgroundColor="{StaticResource Primary}" TextColor="White"/>
+            <Label Text="Register" HorizontalOptions="Center" TextColor="{StaticResource Secondary}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                </Label.GestureRecognizers>
+            </Label>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
