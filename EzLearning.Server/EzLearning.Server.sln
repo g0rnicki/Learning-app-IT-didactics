@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31911.196
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzLearning.Server", "EzLearning.Server\EzLearning.Server.csproj", "{32DE9D89-3AD3-41B2-879F-90966C825641}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EzLearning.Server.Services", "EzLearning.Server.Services\EzLearning.Server.Services.csproj", "{B8233D73-FCB1-458A-AB00-21DAD22632B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{32DE9D89-3AD3-41B2-879F-90966C825641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32DE9D89-3AD3-41B2-879F-90966C825641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32DE9D89-3AD3-41B2-879F-90966C825641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32DE9D89-3AD3-41B2-879F-90966C825641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8233D73-FCB1-458A-AB00-21DAD22632B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8233D73-FCB1-458A-AB00-21DAD22632B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8233D73-FCB1-458A-AB00-21DAD22632B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8233D73-FCB1-458A-AB00-21DAD22632B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {327758AF-18A6-43D7-95DA-6F0DD6E0AD37}
+	EndGlobalSection
+EndGlobal
