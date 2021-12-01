@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EzLearning.Serve.Dal\EzLearning.Server.Dal.csproj" />
+    <ProjectReference Include="..\EzLearning.Server.Dal\EzLearning.Server.Dal.csproj" />
   </ItemGroup>
 
 </Project>

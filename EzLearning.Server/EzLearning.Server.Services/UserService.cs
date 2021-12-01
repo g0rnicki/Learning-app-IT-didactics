@@ -1,4 +1,5 @@
 ﻿using EzLearning.Server.Dal;
+using EzLearning.Server.Dal.Models;
 using EzLearning.Server.Services.Contracts;
 using EzLearning.Server.Services.Interfaces;
 using Microsoft.IdentityModel.Tokens;
@@ -23,7 +24,7 @@ namespace EzLearning.Server.Services
             _ctx = ctx;
         }
 
-        public Task<AuthorizationResult> AuthorizeUserAsync(string username, string password)
+        public Task<LoginResult> LoginUserAsync(string username, string password)
         {
             var queriedUser = (from u in _ctx.users
                          where u.Username == username
@@ -33,11 +34,11 @@ namespace EzLearning.Server.Services
 
             if (queriedUser == null || !queriedUser.PasswordHash.Equals(passwordHash))
             {
-                return Task.FromResult(new AuthorizationResult { IsSuccessfull = false, Token = string.Empty });
+                return Task.FromResult(new LoginResult { IsSuccessfull = false, Token = string.Empty });
             }
             else
             {
-                return Task.FromResult(new AuthorizationResult { IsSuccessfull = true, Token = GenerateJwtToken(queriedUser) });
+                return Task.FromResult(new LoginResult { IsSuccessfull = true, Token = GenerateJwtToken(queriedUser) });
             }
         }
 

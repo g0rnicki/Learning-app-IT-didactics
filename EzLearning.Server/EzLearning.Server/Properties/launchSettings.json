@@ -22,7 +22,7 @@
       }
     },
     "EzLearning.Server": {
-      "commandName": "Executable",
+      "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace EzLearning.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -19,12 +19,12 @@ namespace EzLearning.Server.Controllers
             _logger = logger;
         }
 
-        [HttpPost("authenticate")]
-        public async Task<IActionResult> AuthorizeUser([FromBody] AuthorizationRequestBody requestBody)
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginUser([FromBody] AuthorizationRequestBody requestBody)
         {
             _logger.LogInformation($"Authorizing user: {requestBody.Username}");
 
-            var response = await _userService.AuthorizeUserAsync(requestBody.Username, requestBody.Password);
+            var response = await _userService.LoginUserAsync(requestBody.Username, requestBody.Password);
 
             if (response == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
