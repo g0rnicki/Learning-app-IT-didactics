@@ -33,9 +33,19 @@ namespace Test_app_1.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            var result = await _restClient.AuthorizeUser("hehehe", "huehue");
-            Console.WriteLine(result.Token);
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            try
+            {
+                var result = await _restClient.AuthorizeUser("tomek", "huehue");
+                Console.WriteLine(result.Token);
+                if (result.IsSuccessfull)
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Button_Clicked Exception: {ex.Message}");
+            }
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
