@@ -45,7 +45,7 @@ namespace EzLearning.Server
             services.AddScoped<IUserService>(sp =>
             {
                 var ctx = sp.GetRequiredService<AppDataContext>();
-                return new UserService(ctx, "superSecretToken");
+                return new UserService(ctx, Configuration.GetSection("AppSettings")["Secret"]);
             });
         }
 

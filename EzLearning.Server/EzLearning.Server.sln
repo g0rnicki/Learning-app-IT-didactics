@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EzLearning.Server", "EzLear
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EzLearning.Server.Services", "EzLearning.Server.Services\EzLearning.Server.Services.csproj", "{B8233D73-FCB1-458A-AB00-21DAD22632B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EzLearning.Server.Dal", "EzLearning.Serve.Dal\EzLearning.Server.Dal.csproj", "{72D697B3-0C21-42DC-941B-D334C1BA8190}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EzLearning.Server.Dal", "EzLearning.Server.Dal\EzLearning.Server.Dal.csproj", "{72D697B3-0C21-42DC-941B-D334C1BA8190}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
