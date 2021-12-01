@@ -68,7 +68,6 @@ namespace Test_app_1.Services
             };
 
             _authorizedHttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
-            _authorizedHttpClient.DefaultRequestHeaders.Add("Content-Type", "application/json");
         }
     }
 }
