@@ -11,7 +11,7 @@ namespace EzLearning.Server.Controllers
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = (User)context.HttpContext.Items["User"];
+            var user = (UserDto)context.HttpContext.Items["User"];
 
             if (user == null)
             {

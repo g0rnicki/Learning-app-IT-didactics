@@ -8,4 +8,8 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.14.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EzLearning.Serve.Dal\EzLearning.Server.Dal.csproj" />
+  </ItemGroup>
+
 </Project>
