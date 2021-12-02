@@ -33,8 +33,10 @@ namespace Test_app_1.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            var result = await _restClient.AuthorizeUser("hehehe", "huehue");
-            Console.WriteLine(result.Token);
+            var username = Username_entry.Text;
+            var password = Password_entry.Text;
+            var result = await _restClient.AuthorizeUser(username, password);
+            Console.WriteLine(username + " " + password);
             await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
         }
 

@@ -2,14 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Test_app_1.Views.RegistrationPage"
-             Shell.FlyoutBehavior="Disabled">
+             Shell.FlyoutBehavior="Disabled"
+             BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource BackgroundColorDark}, 
+                    Light={StaticResource BackgroundColor}}">
     <ContentPage.Content>
         <StackLayout Padding="40" VerticalOptions="Center"
                      HorizontalOptions="FillAndExpand">
-            <Entry Placeholder="Username" TextColor="{StaticResource Secondary}" />
-            <Entry Placeholder="Email" TextColor="{StaticResource Secondary}"/>
-            <Entry IsPassword="True" Placeholder="Password" TextColor="{StaticResource Secondary}"/>
-            <Entry IsPassword="True" Placeholder="Repeat password" TextColor="{StaticResource Secondary}"/>
+            <Entry x:Name="Username_entry" Placeholder="Username" TextColor="{StaticResource Secondary}" />
+            <Entry x:Name="Email_entry" Placeholder="Email" TextColor="{StaticResource Secondary}"/>
+            <Entry x:Name="Password_entry" IsPassword="True" Placeholder="Password" TextColor="{StaticResource Secondary}"/>
+            <Entry x:Name="Confirm_Password_entry" IsPassword="True" Placeholder="Confirm password" TextColor="{StaticResource Secondary}"/>
 
             <Button Text="Register" Clicked="Button_Clicked" BackgroundColor="{StaticResource Primary}" TextColor="White"/>
         </StackLayout>

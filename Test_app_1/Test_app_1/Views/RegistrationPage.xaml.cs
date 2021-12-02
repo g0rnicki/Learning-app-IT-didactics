@@ -18,7 +18,16 @@ namespace Test_app_1.Views
         }
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            var username = Username_entry.Text;
+            var email = Email_entry.Text;
+            var password = Password_entry.Text;
+            var confirm_password = Confirm_Password_entry.Text;
+
+            if(password== confirm_password)
+                await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            else
+                await DisplayAlert("Confrim password does't match", "Make sure passwords are the same", "OK");
+
         }
     }
 }
