@@ -13,7 +13,7 @@ namespace Test_app_1
         {
             InitializeComponent();
 
-            DependencyService.Register<IRestClient, RestClient>();
+            RegisterServices();
 
             MainPage = new AppShell();
             
@@ -29,6 +29,11 @@ namespace Test_app_1
 
         protected override void OnResume()
         {
+        }
+
+        private void RegisterServices()
+        {
+            DependencyService.Register<IRestClient, RestClient>();
         }
     }
 }
