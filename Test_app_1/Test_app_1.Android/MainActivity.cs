@@ -4,6 +4,13 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Test_app_1.Services.Interfaces;
+using Android.Widget;
+using Xamarin.Essentials;
+using Xamarin.Forms;
+using Test_app_1.Droid;
+
+[assembly:Dependency(typeof(ToastService))]
 
 namespace Test_app_1.Droid
 {
@@ -23,6 +30,14 @@ namespace Test_app_1.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    public class ToastService : IToastService
+    {
+        public void MakeToast(string message)
+        {
+            Toast.MakeText(Platform.AppContext, message, ToastLength.Long).Show();
         }
     }
 }

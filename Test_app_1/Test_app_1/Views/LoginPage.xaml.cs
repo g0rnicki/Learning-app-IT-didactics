@@ -35,14 +35,36 @@ namespace Test_app_1.Views
         {
             var username = Username_entry.Text;
             var password = Password_entry.Text;
-            var result = await _restClient.AuthorizeUser(username, password);
-            Console.WriteLine(username + " " + password);
-            await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            //var result = await _restClient.AuthorizeUser(username, password);
+            //Console.WriteLine(username + " " + password);
+            //await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+            try
+            {
+                var result = await _restClient.AuthorizeUser(username, password);   // TUTEJ POWINNY BYĆ WARTOŚCI Z UI
+                Console.WriteLine(result.Token);
+                if (result.IsSuccessfull)
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                }
+                else
+                {
+                    ShowFailedToLogin("Wrong username or password.");
+                }
+            }
+            catch (Exception ex)
+            {
+                ShowFailedToLogin("Server error.");
+            }
         }
 
         private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
         {
             await Shell.Current.GoToAsync($"{nameof(RegistrationPage)}");
+        }
+
+        private void ShowFailedToLogin(string message)
+        {
+            DependencyService.Get<IToastService>()?.MakeToast($"Failed to log in. {message}");
         }
     }
 }
