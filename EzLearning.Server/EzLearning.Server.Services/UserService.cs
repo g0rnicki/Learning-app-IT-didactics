@@ -42,6 +42,43 @@ namespace EzLearning.Server.Services
             }
         }
 
+        public async Task<RegisterResult> RegisterUserAsync(string username, string email, string password)
+        {
+            var timeCreated = DateTime.UtcNow;
+
+            var queriedUser = (from u in _ctx.users
+                               where u.Username == username
+                               select u).FirstOrDefault();
+
+            if (queriedUser != null)
+            {
+                return new RegisterResult
+                {
+                    IsSuccessfull = false,
+                    Message = "User with provided username already exists. Choose different username."
+                };
+            }
+
+            var passwordHash = GetPasswordHash(password);
+
+            var newUser = new User
+            {
+                Username = username,
+                PasswordHash = passwordHash,
+                CreatedTimestamp = timeCreated,
+                UpdatedTimestamp = timeCreated
+            };
+
+            await _ctx.users.AddAsync(newUser);
+            await _ctx.SaveChangesAsync();
+
+            return new RegisterResult
+            {
+                IsSuccessfull = true,
+                Message = "User successfully registered."
+            };
+        }
+
         public Task<UserDto> GetUserByIdAsync(Guid userId)
         {
             var queriedUser = (from u in _ctx.users
