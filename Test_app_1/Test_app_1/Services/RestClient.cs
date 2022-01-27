@@ -41,6 +41,33 @@ namespace Test_app_1.Services
             }
         }
 
+        public async Task<RegisterResult> RegisterUser(string username, string email, string password)
+        {
+            var requestBody = new RegisterUserRequestBody
+            {
+                Username = username,
+                Email = email,
+                Password = password
+            };
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, $"{serverAddress}/api/users/register")
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json")
+            };
+            var response = await _genericHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonConvert.DeserializeObject<RegisterResult>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+            else
+            {
+                return new RegisterResult { IsSuccessfull = false, Message = "Ups... Something went wrong at the server." };
+            }
+        }
+
+
+
         public void Logout()
         {
             if (_authorizedHttpClient != null)
