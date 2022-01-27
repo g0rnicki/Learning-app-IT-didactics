@@ -16,5 +16,13 @@ namespace EzLearning.Server.Dal
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Question>()
+                .HasOne(q => q.CorrectAnswer)
+                .WithOne(a => a.Question)
+                .HasForeignKey<Question>(q => q.CorrectAnswerId);
+        }
     }
 }
