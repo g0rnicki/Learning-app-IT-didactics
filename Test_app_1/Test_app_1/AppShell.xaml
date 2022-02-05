@@ -100,12 +100,12 @@
     </FlyoutItem>
 
     <FlyoutItem Title="Lessons" Icon="">
-        <ShellContent Route="LessonPage" ContentTemplate="{DataTemplate local:LessonPage}" />
+        <ShellContent Route="ChaptersPage" ContentTemplate="{DataTemplate local:ChaptersPage}" />
     </FlyoutItem>
     
     <FlyoutItem Title="About" Icon="icon_about.png">
         <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
     </FlyoutItem>
 
-    
+  
 </Shell>
