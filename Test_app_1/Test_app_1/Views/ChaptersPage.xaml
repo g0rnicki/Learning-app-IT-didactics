@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Test_app_1.Views.ChaptersPage"
+             BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource BackgroundColorDark}, 
+                    Light={StaticResource BackgroundColor}}">
+
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10">
+                <Button Text="Chapter 1" BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource SecondaryDark}, 
+                    Light={StaticResource Secondary}}" TextColor="White"
+                    Clicked="Button_Clicked"/>
+                <Button Text="Chapter 2" BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource SecondaryDark}, 
+                    Light={StaticResource Secondary}}" TextColor="White"/>
+                <Button Text="Chapter 3" BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource SecondaryDark}, 
+                    Light={StaticResource Secondary}}" TextColor="White"/>
+                <Button Text="Chapter 4" BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource SecondaryDark}, 
+                    Light={StaticResource Secondary}}" TextColor="White"/>
+                <Button Text="Chapter 5" BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource SecondaryDark}, 
+                    Light={StaticResource Secondary}}" TextColor="White"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
