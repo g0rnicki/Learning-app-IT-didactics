@@ -10,12 +10,16 @@ using Xamarin.Forms.Xaml;
 namespace Test_app_1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LessonPage : ContentPage
+    public partial class ChaptersPage : ContentPage
     {
-        public LessonPage()
+        public ChaptersPage()
         {
             InitializeComponent();
         }
-       
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync($"{nameof(LessonsPage)}");
+        }
     }
 }

@@ -13,6 +13,12 @@ namespace Test_app_1
 
             Routing.RegisterRoute(nameof(RegistrationPage),
              typeof(RegistrationPage));
+
+            Routing.RegisterRoute(nameof(LessonsPage),
+             typeof(LessonsPage));
+
+            Routing.RegisterRoute(nameof(Lesson),
+             typeof(Lesson));
         }
 
     }

@@ -3,14 +3,16 @@ using System;
 using EzLearning.Server.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EzLearning.Server.Dal.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20220127222542_SeedChapterTestData")]
+    partial class SeedChapterTestData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,15 +94,14 @@ namespace EzLearning.Server.Dal.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("CorrectAnswerId")
+                    b.Property<int?>("CorrectAnswerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ChapterTestId");
 
-                    b.HasIndex("CorrectAnswerId")
-                        .IsUnique();
+                    b.HasIndex("CorrectAnswerId");
 
                     b.ToTable("questions");
                 });
@@ -184,10 +185,8 @@ namespace EzLearning.Server.Dal.Migrations
                         .HasForeignKey("ChapterTestId");
 
                     b.HasOne("EzLearning.Server.Dal.Models.QuestionAnswer", "CorrectAnswer")
-                        .WithOne("Question")
-                        .HasForeignKey("EzLearning.Server.Dal.Models.Question", "CorrectAnswerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("CorrectAnswerId");
 
                     b.Navigation("CorrectAnswer");
                 });
@@ -212,11 +211,6 @@ namespace EzLearning.Server.Dal.Migrations
             modelBuilder.Entity("EzLearning.Server.Dal.Models.Question", b =>
                 {
                     b.Navigation("WrongAnswers");
-                });
-
-            modelBuilder.Entity("EzLearning.Server.Dal.Models.QuestionAnswer", b =>
-                {
-                    b.Navigation("Question");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,14 +3,16 @@ using System;
 using EzLearning.Server.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EzLearning.Server.Dal.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    partial class AppDataContextModelSnapshot : ModelSnapshot
+    [Migration("20220127221457_SeedFrstChapterData")]
+    partial class SeedFrstChapterData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,7 +67,7 @@ namespace EzLearning.Server.Dal.Migrations
                     b.Property<int>("Part")
                         .HasColumnType("int");
 
-                    b.Property<int>("QuestionId")
+                    b.Property<int?>("QuestionsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -75,7 +77,7 @@ namespace EzLearning.Server.Dal.Migrations
 
                     b.HasIndex("ChapterId");
 
-                    b.HasIndex("QuestionId");
+                    b.HasIndex("QuestionsId");
 
                     b.ToTable("lessons");
                 });
@@ -92,15 +94,14 @@ namespace EzLearning.Server.Dal.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("CorrectAnswerId")
+                    b.Property<int?>("CorrectAnswerId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ChapterTestId");
 
-                    b.HasIndex("CorrectAnswerId")
-                        .IsUnique();
+                    b.HasIndex("CorrectAnswerId");
 
                     b.ToTable("questions");
                 });
@@ -166,15 +167,13 @@ namespace EzLearning.Server.Dal.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EzLearning.Server.Dal.Models.Question", "Question")
+                    b.HasOne("EzLearning.Server.Dal.Models.Question", "Questions")
                         .WithMany()
-                        .HasForeignKey("QuestionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("QuestionsId");
 
                     b.Navigation("Chapter");
 
-                    b.Navigation("Question");
+                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("EzLearning.Server.Dal.Models.Question", b =>
@@ -184,10 +183,8 @@ namespace EzLearning.Server.Dal.Migrations
                         .HasForeignKey("ChapterTestId");
 
                     b.HasOne("EzLearning.Server.Dal.Models.QuestionAnswer", "CorrectAnswer")
-                        .WithOne("Question")
-                        .HasForeignKey("EzLearning.Server.Dal.Models.Question", "CorrectAnswerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("CorrectAnswerId");
 
                     b.Navigation("CorrectAnswer");
                 });
@@ -212,11 +209,6 @@ namespace EzLearning.Server.Dal.Migrations
             modelBuilder.Entity("EzLearning.Server.Dal.Models.Question", b =>
                 {
                     b.Navigation("WrongAnswers");
-                });
-
-            modelBuilder.Entity("EzLearning.Server.Dal.Models.QuestionAnswer", b =>
-                {
-                    b.Navigation("Question");
                 });
 #pragma warning restore 612, 618
         }

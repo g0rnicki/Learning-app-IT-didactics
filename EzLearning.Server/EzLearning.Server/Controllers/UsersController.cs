@@ -2,6 +2,7 @@
 using EzLearning.Server.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace EzLearning.Server.Controllers
@@ -32,12 +33,32 @@ namespace EzLearning.Server.Controllers
             return Ok(response);
         }
 
+        [HttpPost("register")]
+        public async Task<IActionResult> RegisterUser([FromBody] RegisterUserRequestBody requestBody)
+        {
+            _logger.LogInformation($"Registering user: {requestBody.Username}");
+            return await GetResultSafeAsync(() => _userService.RegisterUserAsync(requestBody.Username, requestBody.Email, requestBody.Password));
+        }
+
         [Authorize]
         [HttpGet]
         public IActionResult GetAll()
         {
             var users = new { shouldPaint = "black" };
             return Ok(users);
+        }
+
+        private async Task<IActionResult> GetResultSafeAsync<T>(Func<Task<T>> action)
+        {
+            try
+            {
+                var result = await action();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }
