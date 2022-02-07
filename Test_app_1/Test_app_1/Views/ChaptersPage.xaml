@@ -8,23 +8,8 @@
 
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="10">
-                <Button Text="Chapter 1" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"
-                    Clicked="Button_Clicked"/>
-                <Button Text="Chapter 2" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"/>
-                <Button Text="Chapter 3" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"/>
-                <Button Text="Chapter 4" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"/>
-                <Button Text="Chapter 5" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"/>
+            <StackLayout x:Name="ButtonStackLayout"  Padding="10">
+            
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

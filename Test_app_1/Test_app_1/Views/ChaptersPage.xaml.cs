@@ -28,8 +28,24 @@ namespace Test_app_1.Views
         protected override async void OnAppearing()
         {
             var chapters = await _restClient.GetAllChapters();
+            var layout = Content.FindByName<StackLayout>("ButtonStackLayout");
+            var colorSecondary = (Color)Application.Current.Resources["Secondary"];
+            var colorSecondaryDark = (Color)Application.Current.Resources["SecondaryDark"];
 
-            // TUTAJ ZAŁADUJ DO BUTTONÓW
+            foreach (var Chapter in chapters) 
+            {
+                Button button = new Button
+                {
+                    Text = Chapter.Name,
+                    TextColor = Color.White,
+            };
+                button.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary , colorSecondaryDark );
+                button.Clicked += async (sender, args) => await Shell.Current.GoToAsync($"{nameof(LessonsPage)}");
+
+                layout.Children.Add(button);
+            }
+
+            Content = layout;
         }
     }
 }
