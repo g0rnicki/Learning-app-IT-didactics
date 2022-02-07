@@ -98,10 +98,19 @@ namespace Test_app_1.Services
             _authorizedHttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
         }
 
-        public Task<List<ChapterDto>> GetAllChapters()
+        public async Task<List<ChapterDto>> GetAllChapters()
         {
             var result = new List<ChapterDto>();
-            return Task.FromResult(result);
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/chapter");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var chapters = JsonConvert.DeserializeObject<ChapterDto[]>(await response.Content.ReadAsStringAsync());
+                result.AddRange(chapters);
+            }
+
+            return result;
         }
     }
 }
