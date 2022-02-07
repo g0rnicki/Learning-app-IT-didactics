@@ -58,7 +58,7 @@ namespace Test_app_1.Views
                 layout.Children.Add(button);
             }
 
-            Content = layout;
+            //Content = layout;
         }
     }
 }

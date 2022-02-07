@@ -9,6 +9,7 @@ namespace Test_app_1.Services.Interfaces
         Task<LoginResult> AuthorizeUser(string username, string password);
         Task<RegisterResult> RegisterUser(string username, string email, string password);
         Task<List<ChapterDto>> GetAllChapters();
+        Task<List<LessonDto>> GetLessonsByChapterId(int chapterId);
         void Logout();
         bool IsLoggedIn();
     }

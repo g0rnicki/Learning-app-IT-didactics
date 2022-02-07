@@ -112,5 +112,20 @@ namespace Test_app_1.Services
 
             return result;
         }
+
+        public async Task<List<LessonDto>> GetLessonsByChapterId(int chapterId)
+        {
+            var result = new List<LessonDto>();
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/chapter/{chapterId}/lessons");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var lessons = JsonConvert.DeserializeObject<LessonDto[]>(await response.Content.ReadAsStringAsync());
+                result.AddRange(lessons);
+            }
+
+            return result;
+        }
     }
 }

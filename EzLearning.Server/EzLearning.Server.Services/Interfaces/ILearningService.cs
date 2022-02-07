@@ -7,5 +7,6 @@ namespace EzLearning.Server.Services.Interfaces
     public interface ILearningService
     {
         Task<List<ChapterDto>> GetAllChapters();
+        Task<List<LessonDto>> GetLessonsByChapterId(int chapterId);
     }
 }
