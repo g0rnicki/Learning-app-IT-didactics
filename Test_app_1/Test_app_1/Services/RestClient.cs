@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,6 +96,12 @@ namespace Test_app_1.Services
             };
 
             _authorizedHttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+        }
+
+        public Task<List<ChapterDto>> GetAllChapters()
+        {
+            var result = new List<ChapterDto>();
+            return Task.FromResult(result);
         }
     }
 }
