@@ -20,8 +20,9 @@ namespace EzLearning.Server.Services
         {
             var chapters = from c in _ctx.chapters
                            select c;
-
-            return Task.FromResult(chapters.Select(c => new ChapterDto { Id = c.Id, Name = c.Name }).ToList());
+            var result = chapters.Select(c => new ChapterDto { Id = c.Id, Name = c.Name, Available = false }).ToList();
+            result[0].Available = true;
+            return Task.FromResult(result);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Test_app_1.Services.Interfaces;
+using Test_app_1.Services.Interfaces.Contracts;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,10 +14,12 @@ namespace Test_app_1.Views
     public partial class ChaptersPage : ContentPage
     {
         private readonly IRestClient _restClient;
+        private IList<ChapterDto> _chapters;
 
         public ChaptersPage()
         {
             _restClient = DependencyService.Get<IRestClient>(DependencyFetchTarget.GlobalInstance);
+            _chapters = new List<ChapterDto>();
             InitializeComponent();
         }
 
@@ -27,21 +30,31 @@ namespace Test_app_1.Views
 
         protected override async void OnAppearing()
         {
-            var chapters = await _restClient.GetAllChapters();
+            _chapters = await _restClient.GetAllChapters();
             var layout = Content.FindByName<StackLayout>("ButtonStackLayout");
+            layout.Children.Clear();
             var colorSecondary = (Color)Application.Current.Resources["Secondary"];
             var colorSecondaryDark = (Color)Application.Current.Resources["SecondaryDark"];
 
-            foreach (var Chapter in chapters) 
+            foreach (var chapter in _chapters) 
             {
                 Button button = new Button
                 {
-                    Text = Chapter.Name,
+                    Text = chapter.Name,
                     TextColor = Color.White,
-            };
+                };
                 button.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary , colorSecondaryDark );
-                button.Clicked += async (sender, args) => await Shell.Current.GoToAsync($"{nameof(LessonsPage)}");
-
+                button.Clicked += async (sender, args) =>
+                {
+                    if (chapter.Available)
+                    {
+                        await Shell.Current.GoToAsync($"{nameof(LessonsPage)}?ChapterId={chapter.Id}");
+                    }
+                    else
+                    {
+                        // TUTEJ DAJ KOMUNIKAT ŻE COMING SOON CZY COŚ
+                    }
+                };
                 layout.Children.Add(button);
             }
 
