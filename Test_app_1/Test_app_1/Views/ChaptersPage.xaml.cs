@@ -52,7 +52,7 @@ namespace Test_app_1.Views
                     }
                     else
                     {
-                        // TUTEJ DAJ KOMUNIKAT ŻE COMING SOON CZY COŚ
+                        DependencyService.Get<IToastService>()?.MakeToast($"New chapters comming soon.");
                     }
                 };
                 layout.Children.Add(button);

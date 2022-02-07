@@ -4,31 +4,8 @@
              x:Class="Test_app_1.Views.LessonsPage">
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Padding="10">
-                <Button Text="Lesson 1" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"
-                    Clicked="Button_Clicked"/>
-                <Button Text="Lesson 2" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"
-                    Clicked="Button_Clicked"/>
-                <Button Text="Lesson 3" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"
-                    Clicked="Button_Clicked"/>
-                <Button Text="Lesson 4" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"
-                    Clicked="Button_Clicked"/>
-                <Button Text="Lesson 5" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"
-                    Clicked="Button_Clicked"/>
-                <Button Text="Chapter 1 Quiz" BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource SecondaryDark}, 
-                    Light={StaticResource Secondary}}" TextColor="White"
-                    Clicked="Button_Clicked"/>
+            <StackLayout x:Name="ButtonStackLayout"  Padding="10">
+
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
