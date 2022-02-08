@@ -68,5 +68,25 @@ namespace EzLearning.Server.Services
                 }).ToList();
             return Task.FromResult(result);
         }
+
+        public Task<QuestionDto> GetQuestionById(int questionId)
+        {
+            var questions = from question in _ctx.questions
+                            where question.Id == questionId
+                            select question;
+
+            if (!questions.Any())
+            {
+                throw new IndexOutOfRangeException("Question with provided ID does not exist.");
+            }
+
+            return Task.FromResult(questions.Select(q => new QuestionDto
+            {
+                Id = q.Id,
+                QuestionContent = q.Content,
+                CorrectAnswer = new AnswerDto { Id = q.CorrectAnswer.Id, AnswerContent = q.CorrectAnswer.Answer },
+                WrongAnswers = q.WrongAnswers.Select(wa => new AnswerDto { Id = wa.Id, AnswerContent = wa.Answer }).ToArray()
+            }).First());
+        }
     }
 }
