@@ -19,14 +19,19 @@ namespace Test_app_1.Views
 
         public Lesson()
         {
+            _restClient = DependencyService.Get<IRestClient>(DependencyFetchTarget.GlobalInstance);
             InitializeComponent();
         }
 
         protected override async void OnAppearing()
         {
             var currentLesson = await _restClient.GetLessonById(LessonId);
+            var title = Content.FindByName<Label>("Title");
+            var content = Content.FindByName<Label>("Content");
 
-            // TUTEJ UZUPEŁNIĆ DANYMI Z currentLesson
+            title.Text = currentLesson.Title;
+            content.Text = currentLesson.Content;
+
         }
 
         private async void Button_Clicked(object sender, EventArgs e)
