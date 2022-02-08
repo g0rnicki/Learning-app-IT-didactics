@@ -155,5 +155,10 @@ namespace Test_app_1.Services
 
             return result;
         }
+
+        public Task<int> GetLessonIdByLessonNumberAndPart(int lessonNumber, int part)
+        {
+            return Task.FromResult(1);
+        }
     }
 }
