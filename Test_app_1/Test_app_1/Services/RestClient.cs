@@ -156,9 +156,18 @@ namespace Test_app_1.Services
             return result;
         }
 
-        public Task<int> GetLessonIdByLessonNumberAndPart(int lessonNumber, int part)
+        public async Task<int?> GetLessonIdByLessonNumberAndPart(int lessonNumber, int part)
         {
-            return Task.FromResult(1);
+            int? result = null;
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/lesson/{lessonNumber}/{part}");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<int>(await response.Content.ReadAsStringAsync());
+            }
+
+            return result;
         }
     }
 }

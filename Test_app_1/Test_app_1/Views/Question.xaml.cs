@@ -12,11 +12,11 @@ namespace Test_app_1.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     [QueryProperty(nameof(QuestionId), nameof(QuestionId))]
-    [QueryProperty(nameof(LessonTitle), nameof(LessonTitle))]
+    [QueryProperty(nameof(LessonId), nameof(LessonId))]
     public partial class Question : ContentPage
     {
         public int QuestionId { get; set; }
-        public string LessonTitle { get; set; }
+        public int LessonId { get; set; }
 
         private readonly IRestClient _restClient;
 
@@ -30,10 +30,12 @@ namespace Test_app_1.Views
 
         protected override async void OnAppearing()
         {
-            var currentQuestion = await _restClient.GetQuestionById(QuestionId);
+            var currentQuestionTask = _restClient.GetQuestionById(QuestionId);
+            var currentLesson = await _restClient.GetLessonById(LessonId);
+            var currentQuestion = await currentQuestionTask;
 
             var titleLabel = Content.FindByName<Label>("Title");
-            titleLabel.Text = LessonTitle;
+            titleLabel.Text = currentLesson.Title;
 
             var contentStackLayout = Content.FindByName<StackLayout>("ContentStackLayout");
             contentStackLayout.Children.Clear();
@@ -50,10 +52,10 @@ namespace Test_app_1.Views
                 contentStackLayout.Children.Add(label);
             }
 
-            SetButtons(currentQuestion);
+            SetButtons(currentQuestion, currentLesson);
         }
 
-        private void SetButtons(QuestionDto question)
+        private async Task SetButtons(QuestionDto question, LessonDto currentLesson)
         {
             var allButtons = new List<Button>();
 
@@ -69,7 +71,7 @@ namespace Test_app_1.Views
             shuffledButtons[0].Text = question.CorrectAnswer.AnswerContent;
             shuffledButtons[0].Clicked += async (sender, args) =>
             {
-                //await Shell.Current.GoToAsync($"{nameof(Question)}?QuestionId={currentLesson.QuestionId}&LessonTitle={currentLesson.Title}");
+                await Shell.Current.GoToAsync(await GetNextNavigationPath(currentLesson));
                 Console.WriteLine($"Good answer");
             };
             shuffledButtons.RemoveAt(0);
@@ -82,9 +84,22 @@ namespace Test_app_1.Views
                     var clickedButton = sender as Button;
                     clickedButton.IsEnabled = false;
                     clickedButton.BackgroundColor = Color.Gray;
-                    //await Shell.Current.GoToAsync($"{nameof(Question)}?QuestionId={currentLesson.QuestionId}&LessonTitle={currentLesson.Title}");
+                    // TUTEJ ZLICZAJ ILE RAZY BŁĘDNA ODPOWIEDŹ
                     Console.WriteLine($"Bad answer");
                 };
+            }
+        }
+
+        private async Task<string> GetNextNavigationPath(LessonDto currentLesson)
+        {
+            if (currentLesson.Part == 1)
+            {
+                var nextLessonId = await _restClient.GetLessonIdByLessonNumberAndPart(currentLesson.LessonNumber, 2);
+                return $"{nameof(Lesson)}?LessonId={nextLessonId}";
+            }
+            else
+            {
+                return $"{nameof(LessonsPage)}?ChapterId={currentLesson.ChapterId}";
             }
         }
     }
