@@ -48,7 +48,7 @@ namespace EzLearning.Server.Controllers
         public async Task<IActionResult> GetLessonById([FromRoute] int lessonId)
         {
             _logger.LogInformation($"Returning lesson by lesson id: {lessonId}");
-            return await GetResultSafeAsync(async () => await _learningService.GetLessonsByChapterId(lessonId));
+            return await GetResultSafeAsync(async () => await _learningService.GetLessonById(lessonId));
         }
 
         private async Task<IActionResult> GetResultSafeAsync<T>(Func<Task<T>> action)

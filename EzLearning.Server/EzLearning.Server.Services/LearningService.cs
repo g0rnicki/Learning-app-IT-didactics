@@ -1,6 +1,7 @@
 ﻿using EzLearning.Server.Dal;
 using EzLearning.Server.Services.Contracts;
 using EzLearning.Server.Services.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,17 +19,34 @@ namespace EzLearning.Server.Services
 
         public Task<List<ChapterDto>> GetAllChapters()
         {
-            //var chapters = from c in _ctx.chapters
-            //               join l in _ctx.lessons on c.Id equals l.ChapterId into lessonsGroup
-            //               orderby c.Id ascending
-            //               select new { c, Available = lessonsGroup };
-            //var result = chapters.Select(c => new ChapterDto { Id = c.c.Id, Name = c.c.Name, Available = c.Available.Any() }).ToList();
             var chapters = from c in _ctx.chapters
                            orderby c.Id ascending
                            select c;
-            var result = chapters.Select(c => new ChapterDto { Id = c.Id, Name = c.Name }).ToList();
-            result[0].Available = true;
+            var result = chapters.Select(c => new ChapterDto { Id = c.Id, Name = c.Name, Available = c.Lessons.Any() }).ToList();
             return Task.FromResult(result);
+        }
+
+        public Task<LessonDto> GetLessonById(int lessonId)
+        {
+            var lessons = from l in _ctx.lessons
+                          where l.Id == lessonId
+                          select l;
+            
+            if (!lessons.Any())
+            {
+                throw new IndexOutOfRangeException("Lesson with provided ID does not exist.");
+            }
+
+            return Task.FromResult(new LessonDto
+            {
+                Id = lessons.First().Id,
+                LessonNumber = lessons.First().LessonNumber,
+                Part = lessons.First().Part,
+                Title = lessons.First().Title,
+                Content = lessons.First().Content,
+                ChapterId = lessons.First().ChapterId,
+                QuestionId = lessons.First().QuestionId
+            });
         }
 
         public Task<List<LessonDto>> GetLessonsByChapterId(int chapterId)
