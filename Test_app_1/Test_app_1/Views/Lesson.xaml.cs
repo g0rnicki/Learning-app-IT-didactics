@@ -27,10 +27,24 @@ namespace Test_app_1.Views
         {
             var currentLesson = await _restClient.GetLessonById(LessonId);
             var title = Content.FindByName<Label>("Title");
-            var content = Content.FindByName<Label>("Content");
+            var contentStackLayout = Content.FindByName<StackLayout>("ContentStackLayout");
+
+            contentStackLayout.Children.Clear();
+
+            string[] separator = { "\\n" };
+
+            foreach(var cont in currentLesson.Content.Split(separator, StringSplitOptions.RemoveEmptyEntries))
+            {
+                var label = new Label
+                {
+                    Text = cont,
+                    VerticalOptions = LayoutOptions.CenterAndExpand
+                };
+                contentStackLayout.Children.Add(label);
+            }
 
             title.Text = currentLesson.Title;
-            content.Text = currentLesson.Content;
+            //content.Text = currentLesson.Content;
 
         }
 

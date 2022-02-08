@@ -14,9 +14,12 @@
                    FontSize="Large"
                    HorizontalOptions="CenterAndExpand"
                    Padding="30"/>
-            <Label x:Name="Content" 
+            <StackLayout x:Name="ContentStackLayout" Padding="0">
+                
+            </StackLayout>
+            <!--<Label x:Name="Content" 
                    Text=""
-                   VerticalOptions="CenterAndExpand"/>
+                   VerticalOptions="CenterAndExpand"/>-->
             <Button x:Name="Button"
                    Text="Continue" 
                    VerticalOptions="EndAndExpand"

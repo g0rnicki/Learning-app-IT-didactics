@@ -128,18 +128,32 @@ namespace Test_app_1.Services
             return result;
         }
 
-        public Task<LessonDto> GetLessonById(int lessonId)
+        public async Task<LessonDto> GetLessonById(int lessonId)
         {
-            return Task.FromResult(new LessonDto
+            LessonDto result = null;
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/lesson/{lessonId}");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
             {
-                Id = lessonId,
-                LessonNumber = (lessonId + 1) / 2,
-                Part = 2 - (lessonId % 2),
-                Title = $"Funny lesson {lessonId}",
-                Content = "blablablabla",
-                ChapterId = 42,
-                QuestionId = lessonId
-            });
+                result = JsonConvert.DeserializeObject<LessonDto>(await response.Content.ReadAsStringAsync());
+            }
+
+            return result;
+        }
+
+        public async Task<QuestionDto> GetQuestionById(int questionId)
+        {
+            QuestionDto result = null;
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/question/{questionId}");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<QuestionDto>(await response.Content.ReadAsStringAsync());
+            }
+
+            return result;
         }
     }
 }
