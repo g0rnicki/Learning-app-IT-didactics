@@ -25,7 +25,7 @@ namespace Test_app_1.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync($"{nameof(LessonsPage)}");
+            await Shell.Current.GoToAsync($"{nameof(Lesson)}");
         }
 
         protected override async void OnAppearing()
@@ -37,6 +37,10 @@ namespace Test_app_1.Views
             layout.Children.Clear();
             var colorSecondary = (Color)Application.Current.Resources["Secondary"];
             var colorSecondaryDark = (Color)Application.Current.Resources["SecondaryDark"];
+            var colorPrimary = (Color)Application.Current.Resources["Primary"];
+            var colorPrimaryDark = (Color)Application.Current.Resources["PrimaryDark"];
+
+            bool lessonsCompleted = false;
 
             foreach(var lesson in lessons.Where(l => l.Part == 1))
             {
@@ -50,9 +54,28 @@ namespace Test_app_1.Views
                 button.Clicked += async (sender, args) =>
                 {
                     Console.WriteLine($"Clicked {lesson.Title}");
+                    await Shell.Current.GoToAsync($"{nameof(Lesson)}");
                 };
+
                 layout.Children.Add(button);
+               
             }
+            var quiz_button = new Button
+            {
+                Text = "Chapter Quiz",
+                TextColor = Color.White,
+                IsEnabled = lessonsCompleted,
+                Padding = 30,
+            };
+            if (lessonsCompleted == true)
+            {
+                quiz_button.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary, colorSecondaryDark);
+            }
+            else
+            {
+                quiz_button.SetAppThemeColor(Button.BackgroundColorProperty, colorPrimary, colorPrimaryDark);
+            }
+            layout.Children.Add(quiz_button);
         }
     }
 }

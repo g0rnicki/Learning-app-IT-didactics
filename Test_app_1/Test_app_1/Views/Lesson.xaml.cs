@@ -19,10 +19,10 @@ namespace Test_app_1.Views
 
         protected override async void OnAppearing()
         {
-            var layout = Content.FindByName<StackLayout>("LessonLayout");
-            layout.Children.Clear();
-            var colorSecondary = (Color)Application.Current.Resources["Secondary"];
-            var colorSecondaryDark = (Color)Application.Current.Resources["SecondaryDark"];
+            //var layout = Content.FindByName<StackLayout>("LessonLayout");
+            //layout.Children.Clear();
+            //var colorSecondary = (Color)Application.Current.Resources["Secondary"];
+            //var colorSecondaryDark = (Color)Application.Current.Resources["SecondaryDark"];
            
         
             
@@ -53,6 +53,11 @@ namespace Test_app_1.Views
             //    TextColor = Color.White,
             //};
             //button1.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary, colorSecondaryDark);
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            await Shell.Current.GoToAsync($"{nameof(Question)}");
         }
     }
 }

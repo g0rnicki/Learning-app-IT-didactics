@@ -35,6 +35,8 @@ namespace Test_app_1.Views
         {
             var username = Username_entry.Text;
             var password = Password_entry.Text;
+            var buttonClicked = (Button)sender;
+            buttonClicked.IsEnabled = false;
             //var result = await _restClient.AuthorizeUser(username, password);
             //Console.WriteLine(username + " " + password);
             //await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
@@ -45,15 +47,18 @@ namespace Test_app_1.Views
                 if (result.IsSuccessfull)
                 {
                     await Shell.Current.GoToAsync($"//{nameof(MainPage)}");
+                    buttonClicked.IsEnabled = true;
                 }
                 else
                 {
                     ShowFailedToLogin("Wrong username or password.");
+                    buttonClicked.IsEnabled = true;
                 }
             }
             catch (Exception ex)
             {
                 ShowFailedToLogin("Server error.");
+                buttonClicked.IsEnabled = true;
             }
         }
 
