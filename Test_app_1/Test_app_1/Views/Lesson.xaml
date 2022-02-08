@@ -23,8 +23,7 @@
                    BackgroundColor="{AppThemeBinding 
                    Dark={StaticResource PrimaryDark}, 
                    Light={StaticResource Primary}}" 
-                   TextColor="White"
-                   Clicked="Button_Clicked"/>
+                   TextColor="White"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

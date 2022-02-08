@@ -40,14 +40,22 @@ namespace Test_app_1.Views
             var colorPrimary = (Color)Application.Current.Resources["Primary"];
             var colorPrimaryDark = (Color)Application.Current.Resources["PrimaryDark"];
 
-            bool lessonsCompleted = false; //TUTEJ INFO Z SERWERA CZY WSZYSTKIE LEKCJE SĄ ZROBIONE
+            bool AllLessonsCompleted = false; //TUTEJ INFO Z SERWERA CZY WSZYSTKIE LEKCJE SĄ ZROBIONE
+            
 
             foreach(var lesson in lessons.Where(l => l.Part == 1))
             {
+                bool lessonCompleted = false; //TUTEJ SPRAWDZA CZY DANA LEKCJA JUŻ JEST ZROBIONA
+
+                var isCompleted = "";
+                if(lessonCompleted)
+                {
+                    isCompleted = "✓";
+                }
                 var button = new Button
                 {
-                    Text = $"Lesson {lesson.LessonNumber}: {lesson.Title}",
-                    TextColor = Color.White
+                    Text = $"Lesson {lesson.LessonNumber}: {lesson.Title}  {isCompleted}",
+                    TextColor = Color.White,
                 };
 
                 button.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary, colorSecondaryDark);
@@ -64,10 +72,10 @@ namespace Test_app_1.Views
             {
                 Text = $"Chapter {ChapterId} Quiz",
                 TextColor = Color.White,
-                IsEnabled = lessonsCompleted,
+                IsEnabled = AllLessonsCompleted,
                 Padding = 30,
             };
-            if (lessonsCompleted == true)
+            if (AllLessonsCompleted == true)
             {
                 quiz_button.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary, colorSecondaryDark);
             }
