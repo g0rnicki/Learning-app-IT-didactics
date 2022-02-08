@@ -43,14 +43,17 @@ namespace Test_app_1.Views
                 contentStackLayout.Children.Add(label);
             }
 
+            var button = Content.FindByName<Button>("Button");
+
             title.Text = currentLesson.Title;
-            //content.Text = currentLesson.Content;
+            button.Clicked += async (sender, args) =>
+            {
+                await Shell.Current.GoToAsync($"{nameof(Question)}?CurrentLessonId={currentLesson.Id}");
+                Console.WriteLine($"Transferred Id: {currentLesson.Id}");
+            };
 
         }
 
-        private async void Button_Clicked(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync($"{nameof(Question)}");
-        }
+
     }
 }
