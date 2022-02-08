@@ -19,6 +19,9 @@ namespace Test_app_1
 
             Routing.RegisterRoute(nameof(Lesson),
              typeof(Lesson));
+
+            Routing.RegisterRoute(nameof(Question),
+             typeof(Question));
         }
 
     }

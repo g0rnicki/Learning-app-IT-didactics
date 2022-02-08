@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,6 +96,69 @@ namespace Test_app_1.Services
             };
 
             _authorizedHttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+        }
+
+        public async Task<List<ChapterDto>> GetAllChapters()
+        {
+            var result = new List<ChapterDto>();
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/chapter");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var chapters = JsonConvert.DeserializeObject<ChapterDto[]>(await response.Content.ReadAsStringAsync());
+                result.AddRange(chapters);
+            }
+
+            return result;
+        }
+
+        public async Task<List<LessonDto>> GetLessonsByChapterId(int chapterId)
+        {
+            var result = new List<LessonDto>();
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/chapter/{chapterId}/lessons");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var lessons = JsonConvert.DeserializeObject<LessonDto[]>(await response.Content.ReadAsStringAsync());
+                result.AddRange(lessons);
+            }
+
+            return result;
+        }
+
+        public async Task<LessonDto> GetLessonById(int lessonId)
+        {
+            LessonDto result = null;
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/lesson/{lessonId}");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<LessonDto>(await response.Content.ReadAsStringAsync());
+            }
+
+            return result;
+        }
+
+        public async Task<QuestionDto> GetQuestionById(int questionId)
+        {
+            QuestionDto result = null;
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/question/{questionId}");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<QuestionDto>(await response.Content.ReadAsStringAsync());
+            }
+
+            return result;
+        }
+
+        public Task<int> GetLessonIdByLessonNumberAndPart(int lessonNumber, int part)
+        {
+            return Task.FromResult(1);
         }
     }
 }

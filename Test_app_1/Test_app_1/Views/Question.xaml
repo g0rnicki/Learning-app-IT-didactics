@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Test_app_1.Views.Question"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource BackgroundColorDark}, 
+                    Light={StaticResource BackgroundColor}}">
+    <ContentPage.Content>
+        <StackLayout x:Name="QuestionLayout" Padding="10">
+            <Label x:Name="Title"
+                   Text="Title"
+                   FontSize="Title"
+                   HorizontalOptions="CenterAndExpand"
+                   Padding="30"/>
+            <StackLayout x:Name="ContentStackLayout" Padding="0">
+
+            </StackLayout>
+            <!--<Label x:Name="Content"
+                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum" 
+                   VerticalOptions="CenterAndExpand"/>-->
+            <Button x:Name="Button1"
+                    Text="Button1" 
+                    VerticalOptions="EndAndExpand"
+                    BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource PrimaryDark}, 
+                    Light={StaticResource Primary}}" 
+                    TextColor="White"/>
+            <Button x:Name="Button2"
+                    Text="Button2" 
+                    VerticalOptions="End"
+                    BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource PrimaryDark}, 
+                    Light={StaticResource Primary}}" 
+                    TextColor="White"/>
+            <Button x:Name="Button3"
+                    Text="Button3" 
+                    VerticalOptions="End"
+                    BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource PrimaryDark}, 
+                    Light={StaticResource Primary}}" 
+                    TextColor="White"/>
+            <Button x:Name="Button4"
+                    Text="Button4" 
+                    VerticalOptions="End"
+                    BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource PrimaryDark}, 
+                    Light={StaticResource Primary}}" 
+                    TextColor="White"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

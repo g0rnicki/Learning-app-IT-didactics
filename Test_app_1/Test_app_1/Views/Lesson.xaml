@@ -1,12 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Test_app_1.Views.Lesson">
+             x:Class="Test_app_1.Views.Lesson"
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{AppThemeBinding 
+                    Dark={StaticResource BackgroundColorDark}, 
+                    Light={StaticResource BackgroundColor}}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout x:Name="LessonLayout" Padding="10">
+            <Label x:Name="Title"
+                   Text=""
+                   FontSize="Large"
+                   HorizontalOptions="CenterAndExpand"
+                   Padding="30"/>
+            <StackLayout x:Name="ContentStackLayout" Padding="0">
+                
+            </StackLayout>
+            <!--<Label x:Name="Content" 
+                   Text=""
+                   VerticalOptions="CenterAndExpand"/>-->
+            <Button x:Name="Button"
+                   Text="Continue" 
+                   VerticalOptions="EndAndExpand"
+                   BackgroundColor="{AppThemeBinding 
+                   Dark={StaticResource PrimaryDark}, 
+                   Light={StaticResource Primary}}" 
+                   TextColor="White"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

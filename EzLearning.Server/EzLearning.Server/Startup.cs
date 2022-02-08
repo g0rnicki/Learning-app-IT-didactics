@@ -47,6 +47,7 @@ namespace EzLearning.Server
                 var ctx = sp.GetRequiredService<AppDataContext>();
                 return new UserService(ctx, Configuration.GetSection("AppSettings")["Secret"]);
             });
+            services.AddScoped<ILearningService, LearningService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
