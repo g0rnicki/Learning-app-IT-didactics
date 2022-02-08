@@ -58,6 +58,13 @@ namespace EzLearning.Server.Controllers
             return await GetResultSafeAsync(async () => await _learningService.GetQuestionById(questionId));
         }
 
+        [HttpGet("lesson/{lessonNumber}/{part}")]
+        public async Task<IActionResult> GetLessonIdByLessonNumberAndPart([FromRoute] int lessonNumber, [FromRoute] int part)
+        {
+            _logger.LogInformation($"Returning lesson id by lesson number: {lessonNumber} and part: {part}");
+            return await GetResultSafeAsync(async () => await _learningService.GetLessonIdByLessonNumberAndPart(lessonNumber, part));
+        }
+
         private async Task<IActionResult> GetResultSafeAsync<T>(Func<Task<T>> action)
         {
             try

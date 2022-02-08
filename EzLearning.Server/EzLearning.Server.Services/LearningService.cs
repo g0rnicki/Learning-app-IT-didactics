@@ -49,6 +49,20 @@ namespace EzLearning.Server.Services
             });
         }
 
+        public Task<int> GetLessonIdByLessonNumberAndPart(int lessonNumber, int part)
+        {
+            var queryResult = from l in _ctx.lessons
+                              where l.LessonNumber == lessonNumber && l.Part == part
+                              select l.Id;
+
+            if (!queryResult.Any())
+            {
+                throw new IndexOutOfRangeException("Lesson with provided lessonNumber and part does not exist.");
+            }
+
+            return Task.FromResult(queryResult.First());
+        }
+
         public Task<List<LessonDto>> GetLessonsByChapterId(int chapterId)
         {
             var lessons = from l in _ctx.lessons

@@ -9,6 +9,7 @@ namespace EzLearning.Server.Services.Interfaces
         Task<List<ChapterDto>> GetAllChapters();
         Task<List<LessonDto>> GetLessonsByChapterId(int chapterId);
         Task<LessonDto> GetLessonById(int lessonId);
+        Task<int> GetLessonIdByLessonNumberAndPart(int lessonNumber, int part);
         Task<QuestionDto> GetQuestionById(int questionId);
     }
 }
