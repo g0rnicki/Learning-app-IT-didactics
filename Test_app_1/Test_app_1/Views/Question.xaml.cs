@@ -78,7 +78,7 @@ namespace Test_app_1.Views
 
             foreach (var badAnswer in question.WrongAnswers.Zip(shuffledButtons, (a, b) => (a, b)))
             {
-                badAnswer.b.Text = badAnswer.a.AnswerContent;
+                badAnswer.b.Text = badAnswer.a.AnswerContent.Replace("\\n", "\n");
                 badAnswer.b.Clicked += async (sender, args) =>
                 {
                     var clickedButton = sender as Button;
