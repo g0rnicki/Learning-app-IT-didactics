@@ -10,21 +10,21 @@
     <ContentPage.Content>
         <StackLayout x:Name="LessonLayout" Padding="10">
             <Label x:Name="Title"
-                   Text="Title"
+                   Text=""
                    FontSize="Large"
                    HorizontalOptions="CenterAndExpand"
                    Padding="30"/>
-            <Label x:Name="Question"
-                   Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum" 
+            <Label x:Name="Content" 
+                   Text=""
                    VerticalOptions="CenterAndExpand"/>
             <Button x:Name="Button"
-                    Text="Continue" 
-                    VerticalOptions="EndAndExpand"
-                    BackgroundColor="{AppThemeBinding 
-                    Dark={StaticResource PrimaryDark}, 
-                    Light={StaticResource Primary}}" 
-                    TextColor="White"
-                    Clicked="Button_Clicked"/>
+                   Text="Continue" 
+                   VerticalOptions="EndAndExpand"
+                   BackgroundColor="{AppThemeBinding 
+                   Dark={StaticResource PrimaryDark}, 
+                   Light={StaticResource Primary}}" 
+                   TextColor="White"
+                   Clicked="Button_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

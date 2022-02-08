@@ -7,6 +7,13 @@
                     Light={StaticResource BackgroundColor}}">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="EzLearning" 
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource Primary}" 
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   Margin="90"
+                   />
             <Label Text="Application created for the subject &quot;Educational Technology and IT Didactics&quot; by Tomasz Górnicki"
                    FontSize="Medium" 
                    VerticalOptions="CenterAndExpand" 
