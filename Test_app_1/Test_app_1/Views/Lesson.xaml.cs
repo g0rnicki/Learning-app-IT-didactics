@@ -19,40 +19,7 @@ namespace Test_app_1.Views
 
         protected override async void OnAppearing()
         {
-            //var layout = Content.FindByName<StackLayout>("LessonLayout");
-            //layout.Children.Clear();
-            //var colorSecondary = (Color)Application.Current.Resources["Secondary"];
-            //var colorSecondaryDark = (Color)Application.Current.Resources["SecondaryDark"];
-           
-        
-            
-            //Button button1 = new Button
-            //{
-            //    Text = "Button1",
-            //    TextColor = Color.White,
-            //};
-            //button1.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary, colorSecondaryDark);
 
-            //Button button2 = new Button
-            //{
-            //    Text = "Button1",
-            //    TextColor = Color.White,
-            //};
-            //button1.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary, colorSecondaryDark);
-
-            //Button button3 = new Button
-            //{
-            //    Text = "Button1",
-            //    TextColor = Color.White,
-            //};
-            //button1.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary, colorSecondaryDark);
-
-            //Button button4 = new Button
-            //{
-            //    Text = "Button1",
-            //    TextColor = Color.White,
-            //};
-            //button1.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary, colorSecondaryDark);
         }
 
         private async void Button_Clicked(object sender, EventArgs e)

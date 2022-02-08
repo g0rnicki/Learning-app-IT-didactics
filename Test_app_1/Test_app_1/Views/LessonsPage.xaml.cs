@@ -40,7 +40,7 @@ namespace Test_app_1.Views
             var colorPrimary = (Color)Application.Current.Resources["Primary"];
             var colorPrimaryDark = (Color)Application.Current.Resources["PrimaryDark"];
 
-            bool lessonsCompleted = false;
+            bool lessonsCompleted = false; //TUTEJ INFO Z SERWERA CZY WSZYSTKIE LEKCJE SĄ ZROBIONE
 
             foreach(var lesson in lessons.Where(l => l.Part == 1))
             {
@@ -62,7 +62,7 @@ namespace Test_app_1.Views
             }
             var quiz_button = new Button
             {
-                Text = "Chapter Quiz",
+                Text = $"Chapter {ChapterId} Quiz",
                 TextColor = Color.White,
                 IsEnabled = lessonsCompleted,
                 Padding = 30,
