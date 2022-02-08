@@ -45,12 +45,14 @@ namespace Test_app_1.Views
 
             foreach(var lesson in lessons.Where(l => l.Part == 1))
             {
-                bool lessonCompleted = false; //TUTEJ SPRAWDZA CZY DANA LEKCJA JUŻ JEST ZROBIONA
+                bool lessonCompleted = true; //TUTEJ INFO CZY DANA LEKCJA JUŻ JEST ZROBIONA
 
                 var isCompleted = "";
                 if(lessonCompleted)
                 {
                     isCompleted = "✓";
+                    colorSecondary = colorPrimary;
+                    colorSecondaryDark = colorPrimaryDark;
                 }
                 var button = new Button
                 {

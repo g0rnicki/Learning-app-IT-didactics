@@ -48,7 +48,7 @@ namespace Test_app_1.Views
             title.Text = currentLesson.Title;
             button.Clicked += async (sender, args) =>
             {
-                await Shell.Current.GoToAsync($"{nameof(Question)}?CurrentLessonId={currentLesson.Id}");
+                await Shell.Current.GoToAsync($"{nameof(Question)}?QuestionId={currentLesson.QuestionId}");
                 Console.WriteLine($"Transferred Id: {currentLesson.Id}");
             };
 
