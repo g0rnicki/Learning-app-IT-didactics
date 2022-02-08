@@ -127,5 +127,19 @@ namespace Test_app_1.Services
 
             return result;
         }
+
+        public Task<LessonDto> GetLessonById(int lessonId)
+        {
+            return Task.FromResult(new LessonDto
+            {
+                Id = lessonId,
+                LessonNumber = (lessonId + 1) / 2,
+                Part = 2 - (lessonId % 2),
+                Title = $"Funny lesson {lessonId}",
+                Content = "blablablabla",
+                ChapterId = 42,
+                QuestionId = lessonId
+            });
+        }
     }
 }

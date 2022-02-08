@@ -54,7 +54,7 @@ namespace Test_app_1.Views
                 button.Clicked += async (sender, args) =>
                 {
                     Console.WriteLine($"Clicked {lesson.Title}");
-                    await Shell.Current.GoToAsync($"{nameof(Lesson)}");
+                    await Shell.Current.GoToAsync($"{nameof(Lesson)}?LessonId={lesson.Id}");
                 };
 
                 layout.Children.Add(button);
