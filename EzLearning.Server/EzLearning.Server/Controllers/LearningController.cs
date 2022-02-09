@@ -80,6 +80,13 @@ namespace EzLearning.Server.Controllers
             return await GetResultSafeAsync(() => _learningService.SaveUserFinishedLesson(userProgress));
         }
 
+        [HttpGet("userprogress/{userId}")]
+        public async Task<IActionResult> GetTotalLessonsFinished([FromRoute] Guid userId)
+        {
+            _logger.LogInformation($"Returning number of lessons finished by user {userId}");
+            return await GetResultSafeAsync(() => _learningService.GetTotalLessonsFinished(userId));
+        }
+
         private async Task<IActionResult> GetResultSafeAsync<T>(Func<Task<T>> action)
         {
             try

@@ -129,6 +129,16 @@ namespace EzLearning.Server.Services
             }).First());
         }
 
+        public Task<int> GetTotalLessonsFinished(Guid userId)
+        {
+            var query = from ufl in _ctx.userFinishedLessons
+                        where ufl.UserId == userId
+                        group ufl by new { ufl.UserId, ufl.LessonNumber } into g
+                        select g;
+            var count = query.Count();
+            return Task.FromResult(count);
+        }
+
         public async Task SaveUserFinishedLesson(UserFinishedLessonDto userProgress)
         {
             var newRecord = new UserFinishedLesson
