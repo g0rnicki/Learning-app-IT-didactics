@@ -40,7 +40,7 @@ namespace Test_app_1.Views
             var colorPrimary = (Color)Application.Current.Resources["Primary"];
             var colorPrimaryDark = (Color)Application.Current.Resources["PrimaryDark"];
 
-            bool AllLessonsCompleted = false; //TUTEJ INFO Z SERWERA CZY WSZYSTKIE LEKCJE SĄ ZROBIONE
+            bool AllLessonsCompleted = true; //TUTEJ INFO Z SERWERA CZY WSZYSTKIE LEKCJE SĄ ZROBIONE
             
 
             foreach(var lesson in lessons.Where(l => l.Part == 1))
@@ -77,7 +77,22 @@ namespace Test_app_1.Views
                 IsEnabled = AllLessonsCompleted,
                 Padding = 30,
             };
-            if (AllLessonsCompleted == true)
+            quiz_button.Clicked += async (sender, args) =>
+            {
+                var chapterQuizQuestions = await _restClient.GetChapterQuizQuestionsByChapterId(ChapterId);
+
+                if (chapterQuizQuestions.Any())
+                {
+                    var firstQuestion = chapterQuizQuestions.OrderBy(q => q.Id).First();
+                    await Shell.Current.GoToAsync($"{nameof(Question)}?QuestionId={firstQuestion.Id}&LessonId=0&ChapterId={ChapterId}");
+                }
+                else
+                {
+                    // TUTAJ DAĆ INFO ŻE NIE MA JESZCZE QUIZU
+                }
+            };
+
+            if (AllLessonsCompleted)
             {
                 quiz_button.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary, colorSecondaryDark);
             }

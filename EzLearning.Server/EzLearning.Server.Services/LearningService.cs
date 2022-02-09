@@ -1,6 +1,7 @@
 ﻿using EzLearning.Server.Dal;
 using EzLearning.Server.Services.Contracts;
 using EzLearning.Server.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,30 @@ namespace EzLearning.Server.Services
             return Task.FromResult(result);
         }
 
+        public Task<List<QuestionDto>> GetChapterQuizQuestionsByChapterId(int chapterId)
+        {
+            var quizQuestions = from ct in _ctx.tests
+                                where ct.ChapterId == chapterId
+                                select ct.TestQuestions;
+
+            if (!quizQuestions.Any())
+            {
+                throw new IndexOutOfRangeException("There are no quiz questions for the provided chapter ID.");
+            }
+
+            var questionIds = quizQuestions.First().Select(qq => qq.Id).ToList();
+
+            var questions = _ctx.questions.Where(q => questionIds.Contains(q.Id));
+                            
+            return Task.FromResult(questions.Select(q => new QuestionDto
+            {
+                Id = q.Id,
+                QuestionContent = q.Content,
+                CorrectAnswer = new AnswerDto { Id = q.CorrectAnswer.Id, AnswerContent = q.CorrectAnswer.Answer },
+                WrongAnswers = q.WrongAnswers.Select(wa => new AnswerDto { Id = wa.Id, AnswerContent = wa.Answer }).ToArray()
+            }).ToList());
+        }
+
         public Task<LessonDto> GetLessonById(int lessonId)
         {
             var lessons = from l in _ctx.lessons
@@ -47,6 +72,20 @@ namespace EzLearning.Server.Services
                 ChapterId = lessons.First().ChapterId,
                 QuestionId = lessons.First().QuestionId
             });
+        }
+
+        public Task<int> GetLessonIdByLessonNumberAndPart(int lessonNumber, int part)
+        {
+            var queryResult = from l in _ctx.lessons
+                              where l.LessonNumber == lessonNumber && l.Part == part
+                              select l.Id;
+
+            if (!queryResult.Any())
+            {
+                throw new IndexOutOfRangeException("Lesson with provided lessonNumber and part does not exist.");
+            }
+
+            return Task.FromResult(queryResult.First());
         }
 
         public Task<List<LessonDto>> GetLessonsByChapterId(int chapterId)
