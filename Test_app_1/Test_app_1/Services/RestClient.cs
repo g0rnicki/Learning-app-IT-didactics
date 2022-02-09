@@ -222,9 +222,19 @@ namespace Test_app_1.Services
             return result;
         }
 
-        public Task<List<int>> GetLessonNumbersForFinishedChapterLesssons(Guid userId, int chapterId)
+        public async Task<List<int>> GetLessonNumbersForFinishedChapterLesssons(Guid userId, int chapterId)
         {
-            return Task.FromResult(new List<int> { 1, 3 });
+            var result = new List<int>();
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/userprogress/{userId}/finished/{chapterId}");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var lessonNumbers = JsonConvert.DeserializeObject<int[]>(await response.Content.ReadAsStringAsync());
+                result.AddRange(lessonNumbers);
+            }
+
+            return result;
         }
     }
 }
