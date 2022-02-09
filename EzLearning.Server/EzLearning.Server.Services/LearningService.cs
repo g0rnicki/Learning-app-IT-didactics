@@ -1,6 +1,7 @@
 ﻿using EzLearning.Server.Dal;
 using EzLearning.Server.Services.Contracts;
 using EzLearning.Server.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,30 @@ namespace EzLearning.Server.Services
                            select c;
             var result = chapters.Select(c => new ChapterDto { Id = c.Id, Name = c.Name, Available = c.Lessons.Any() }).ToList();
             return Task.FromResult(result);
+        }
+
+        public Task<List<QuestionDto>> GetChapterQuizQuestionsByChapterId(int chapterId)
+        {
+            var quizQuestions = from ct in _ctx.tests
+                                where ct.ChapterId == chapterId
+                                select ct.TestQuestions;
+
+            if (!quizQuestions.Any())
+            {
+                throw new IndexOutOfRangeException("There are no quiz questions for the provided chapter ID.");
+            }
+
+            var questionIds = quizQuestions.First().Select(qq => qq.Id).ToList();
+
+            var questions = _ctx.questions.Where(q => questionIds.Contains(q.Id));
+                            
+            return Task.FromResult(questions.Select(q => new QuestionDto
+            {
+                Id = q.Id,
+                QuestionContent = q.Content,
+                CorrectAnswer = new AnswerDto { Id = q.CorrectAnswer.Id, AnswerContent = q.CorrectAnswer.Answer },
+                WrongAnswers = q.WrongAnswers.Select(wa => new AnswerDto { Id = wa.Id, AnswerContent = wa.Answer }).ToArray()
+            }).ToList());
         }
 
         public Task<LessonDto> GetLessonById(int lessonId)

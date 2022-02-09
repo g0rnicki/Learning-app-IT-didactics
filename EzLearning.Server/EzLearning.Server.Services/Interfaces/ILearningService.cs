@@ -11,5 +11,6 @@ namespace EzLearning.Server.Services.Interfaces
         Task<LessonDto> GetLessonById(int lessonId);
         Task<int> GetLessonIdByLessonNumberAndPart(int lessonNumber, int part);
         Task<QuestionDto> GetQuestionById(int questionId);
+        Task<List<QuestionDto>> GetChapterQuizQuestionsByChapterId(int chapterId);
     }
 }
