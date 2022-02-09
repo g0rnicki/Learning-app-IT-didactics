@@ -207,5 +207,10 @@ namespace Test_app_1.Services
         {
             return _userID;
         }
+
+        public Task<int> GetTotalLessonsFinished(Guid userId)
+        {
+            return Task.FromResult(42);
+        }
     }
 }

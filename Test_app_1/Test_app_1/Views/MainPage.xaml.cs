@@ -21,6 +21,8 @@ namespace Test_app_1.Views
 
         protected override async void OnAppearing()
         {
+            var totalLessonsFinished = await _restClient.GetTotalLessonsFinished(_restClient.GetCurrentUserId());
+
             var greeting = Content.FindByName<Label>("Greeting");
             var stat1 = Content.FindByName<Label>("Statistic1");
             var stat2 = Content.FindByName<Label>("Statistic2");
