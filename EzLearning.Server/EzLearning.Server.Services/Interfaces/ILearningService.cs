@@ -15,5 +15,6 @@ namespace EzLearning.Server.Services.Interfaces
         Task<List<QuestionDto>> GetChapterQuizQuestionsByChapterId(int chapterId);
         Task SaveUserFinishedLesson(UserFinishedLessonDto userProgress);
         Task<int> GetTotalLessonsFinished(Guid userId);
+        Task<List<int>> GetLessonNumbersForFinishedChapterLesssons(Guid userId, int chapterId);
     }
 }

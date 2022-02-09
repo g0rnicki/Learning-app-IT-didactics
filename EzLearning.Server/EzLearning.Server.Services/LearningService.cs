@@ -89,6 +89,15 @@ namespace EzLearning.Server.Services
             return Task.FromResult(queryResult.First());
         }
 
+        public Task<List<int>> GetLessonNumbersForFinishedChapterLesssons(Guid userId, int chapterId)
+        {
+            var query = from ufl in _ctx.userFinishedLessons
+                        where ufl.UserId == userId
+                        select ufl.LessonNumber;
+
+            return Task.FromResult(query.Distinct().ToList());
+        }
+
         public Task<List<LessonDto>> GetLessonsByChapterId(int chapterId)
         {
             var lessons = from l in _ctx.lessons
