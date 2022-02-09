@@ -169,5 +169,20 @@ namespace Test_app_1.Services
 
             return result;
         }
+
+        public async Task<List<QuestionDto>> GetChapterQuizQuestionsByChapterId(int chapterId)
+        {
+            var result = new List<QuestionDto>();
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/chapter/{chapterId}/questions");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var questions = JsonConvert.DeserializeObject<QuestionDto[]>(await response.Content.ReadAsStringAsync());
+                result.AddRange(questions);
+            }
+
+            return result;
+        }
     }
 }
