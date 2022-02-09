@@ -16,5 +16,6 @@ namespace Test_app_1.Services.Interfaces
         Task<List<QuestionDto>> GetChapterQuizQuestionsByChapterId(int chapterId);
         void Logout();
         bool IsLoggedIn();
+        string GetCurrentUsername();
     }
 }
