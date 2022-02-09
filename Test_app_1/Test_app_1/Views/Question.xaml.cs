@@ -109,8 +109,20 @@ namespace Test_app_1.Views
             }
             else
             {
+                await SaveLessonFinished(currentLesson);
                 return $"{nameof(LessonsPage)}?ChapterId={currentLesson.ChapterId}";
             }
+        }
+
+        private Task SaveLessonFinished(LessonDto lesson)
+        {
+            var lessonFinished = new UserFinishedLessonDto
+            {
+                LessonNumber = lesson.LessonNumber,
+                UserId = _restClient.GetCurrentUserId()
+            };
+
+            return _restClient.SaveUserProgress(lessonFinished);
         }
 
         private async Task SetButtonsInQuiz(QuestionDto currentQuestion)

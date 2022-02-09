@@ -188,14 +188,19 @@ namespace Test_app_1.Services
             return result;
         }
 
+        public async Task SaveUserProgress(UserFinishedLessonDto progress)
+        {
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, $"{serverAddress}/api/learning/userprogress")
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(progress), Encoding.UTF8, "application/json")
+            };
+
+            await _authorizedHttpClient.SendAsync(httpRequest); // Powinno być sprawdzenie response ale już trudno
+        }
+
         public string GetCurrentUsername()
         {
             return _username;
-        }
-
-        public Task SaveUserProgress(UserFinishedLessonDto progress)
-        {
-            throw new NotImplementedException();
         }
         
         public Guid GetCurrentUserId()
