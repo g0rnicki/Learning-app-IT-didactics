@@ -17,6 +17,7 @@ namespace Test_app_1.Services.Interfaces
         Task<List<QuestionDto>> GetChapterQuizQuestionsByChapterId(int chapterId);
         Task SaveUserProgress(UserFinishedLessonDto progress);
         Task<int?> GetTotalLessonsFinished(Guid userId);
+        Task<List<int>> GetLessonNumbersForFinishedChapterLesssons(Guid userId, int chapterId);
         void Logout();
         bool IsLoggedIn();
         string GetCurrentUsername();

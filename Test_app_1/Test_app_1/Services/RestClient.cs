@@ -221,5 +221,10 @@ namespace Test_app_1.Services
 
             return result;
         }
+
+        public Task<List<int>> GetLessonNumbersForFinishedChapterLesssons(Guid userId, int chapterId)
+        {
+            return Task.FromResult(new List<int> { 1, 3 });
+        }
     }
 }

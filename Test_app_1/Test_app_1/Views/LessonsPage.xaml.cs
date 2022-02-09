@@ -40,12 +40,15 @@ namespace Test_app_1.Views
             var colorPrimary = (Color)Application.Current.Resources["Primary"];
             var colorPrimaryDark = (Color)Application.Current.Resources["PrimaryDark"];
 
-            bool AllLessonsCompleted = true; //TUTEJ INFO Z SERWERA CZY WSZYSTKIE LEKCJE SĄ ZROBIONE
-            
+            var allFinishedLessonsNumbers = await _restClient.GetLessonNumbersForFinishedChapterLesssons(_restClient.GetCurrentUserId(), ChapterId);
+            var finishedLessonsNumbersSet = new HashSet<int>(allFinishedLessonsNumbers);
+            var allLessonsNumbersSet = new HashSet<int>(lessons.Select(l => l.LessonNumber));
+
+            bool allLessonsCompleted = finishedLessonsNumbersSet.SetEquals(allLessonsNumbersSet);
 
             foreach(var lesson in lessons.Where(l => l.Part == 1))
             {
-                bool lessonCompleted = true; //TUTEJ INFO CZY DANA LEKCJA JUŻ JEST ZROBIONA
+                bool lessonCompleted = finishedLessonsNumbersSet.Contains(lesson.LessonNumber);
 
                 var isCompleted = "";
                 if(lessonCompleted)
@@ -74,7 +77,7 @@ namespace Test_app_1.Views
             {
                 Text = $"Chapter {ChapterId} Quiz",
                 TextColor = Color.White,
-                IsEnabled = AllLessonsCompleted,
+                IsEnabled = allLessonsCompleted,
                 Padding = 30,
             };
             quiz_button.Clicked += async (sender, args) =>
@@ -92,7 +95,7 @@ namespace Test_app_1.Views
                 }
             };
 
-            if (AllLessonsCompleted)
+            if (allLessonsCompleted)
             {
                 quiz_button.SetAppThemeColor(Button.BackgroundColorProperty, colorSecondary, colorSecondaryDark);
             }
