@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using EzLearning.Server.Dal;
+using EzLearning.Server.Services.Contracts;
 using EzLearning.Server.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -72,12 +73,32 @@ namespace EzLearning.Server.Controllers
             return await GetResultSafeAsync(async () => await _learningService.GetChapterQuizQuestionsByChapterId(chapterId));
         }
 
+        [HttpPost("userprogress")]
+        public async Task<IActionResult> SaveUserProgress([FromBody] UserFinishedLessonDto userProgress)
+        {
+            _logger.LogInformation($"Saving lessons finished by user {userProgress.UserId}");
+            return await GetResultSafeAsync(() => _learningService.SaveUserFinishedLesson(userProgress));
+        }
+
         private async Task<IActionResult> GetResultSafeAsync<T>(Func<Task<T>> action)
         {
             try
             {
                 var result = await action();
                 return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        private async Task<IActionResult> GetResultSafeAsync(Func<Task> action)
+        {
+            try
+            {
+                await action();
+                return Ok();
             }
             catch (Exception ex)
             {

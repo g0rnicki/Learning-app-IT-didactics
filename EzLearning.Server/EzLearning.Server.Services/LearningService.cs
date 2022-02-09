@@ -1,4 +1,5 @@
 ﻿using EzLearning.Server.Dal;
+using EzLearning.Server.Dal.Models;
 using EzLearning.Server.Services.Contracts;
 using EzLearning.Server.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -126,6 +127,18 @@ namespace EzLearning.Server.Services
                 CorrectAnswer = new AnswerDto { Id = q.CorrectAnswer.Id, AnswerContent = q.CorrectAnswer.Answer },
                 WrongAnswers = q.WrongAnswers.Select(wa => new AnswerDto { Id = wa.Id, AnswerContent = wa.Answer }).ToArray()
             }).First());
+        }
+
+        public async Task SaveUserFinishedLesson(UserFinishedLessonDto userProgress)
+        {
+            var newRecord = new UserFinishedLesson
+            {
+                UserId = userProgress.UserId,
+                LessonNumber = userProgress.LessonNumber
+            };
+
+            await _ctx.userFinishedLessons.AddAsync(newRecord);
+            await _ctx.SaveChangesAsync();
         }
     }
 }

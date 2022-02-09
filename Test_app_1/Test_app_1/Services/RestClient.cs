@@ -14,7 +14,7 @@ namespace Test_app_1.Services
         private readonly HttpClient _genericHttpClient;
         private HttpClient _authorizedHttpClient = null;
         private string _username = string.Empty;
-
+        
         private static readonly string serverAddress = "http://10.0.2.2:4040";
 
         public RestClient()
@@ -189,6 +189,11 @@ namespace Test_app_1.Services
         public string GetCurrentUsername()
         {
             return _username;
+        }
+
+        public Task SaveUserProgress(UserFinishedLessonDto progress)
+        {
+            throw new NotImplementedException();
         }
     }
 }
