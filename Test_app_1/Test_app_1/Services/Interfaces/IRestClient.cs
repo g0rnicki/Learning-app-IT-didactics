@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Test_app_1.Services.Interfaces.Contracts;
 
@@ -17,5 +18,6 @@ namespace Test_app_1.Services.Interfaces
         void Logout();
         bool IsLoggedIn();
         string GetCurrentUsername();
+        Guid GetCurrentUserId();
     }
 }
