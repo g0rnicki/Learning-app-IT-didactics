@@ -26,7 +26,7 @@ namespace Test_app_1.Views
             var stat2 = Content.FindByName<Label>("Statistic2");
             var stat3 = Content.FindByName<Label>("Statistic3");
 
-            var username = ""; //TUTEJ MA BYĆ USERNAME
+            var username = _restClient.GetCurrentUsername();
 
             greeting.Text = $"Welcome {username}";
 
