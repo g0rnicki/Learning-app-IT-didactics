@@ -13,6 +13,8 @@ namespace Test_app_1.Services
     {
         private readonly HttpClient _genericHttpClient;
         private HttpClient _authorizedHttpClient = null;
+        private string _username = string.Empty;
+        private Guid _userID = Guid.Empty;
 
         private static readonly string serverAddress = "http://10.0.2.2:4040";
 
@@ -34,6 +36,8 @@ namespace Test_app_1.Services
             {
                 var result =  JsonConvert.DeserializeObject<LoginResult>(await response.Content.ReadAsStringAsync());
                 SetAuthorizedUser(result.Token);
+                _username = username;
+                _userID = result.UserId;
                 return result;
             }
             else
@@ -67,12 +71,11 @@ namespace Test_app_1.Services
             }
         }
 
-
-
         public void Logout()
         {
             if (_authorizedHttpClient != null)
             {
+                _username = string.Empty;
                 _authorizedHttpClient.Dispose();
                 _authorizedHttpClient = null;
             }
@@ -180,6 +183,55 @@ namespace Test_app_1.Services
             {
                 var questions = JsonConvert.DeserializeObject<QuestionDto[]>(await response.Content.ReadAsStringAsync());
                 result.AddRange(questions);
+            }
+
+            return result;
+        }
+
+        public async Task SaveUserProgress(UserFinishedLessonDto progress)
+        {
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, $"{serverAddress}/api/learning/userprogress")
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(progress), Encoding.UTF8, "application/json")
+            };
+
+            await _authorizedHttpClient.SendAsync(httpRequest); // Powinno być sprawdzenie response ale już trudno
+        }
+
+        public string GetCurrentUsername()
+        {
+            return _username;
+        }
+        
+        public Guid GetCurrentUserId()
+        {
+            return _userID;
+        }
+
+        public async Task<int?> GetTotalLessonsFinished(Guid userId)
+        {
+            int? result = null;
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/userprogress/{userId}");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<int>(await response.Content.ReadAsStringAsync());
+            }
+
+            return result;
+        }
+
+        public async Task<List<int>> GetLessonNumbersForFinishedChapterLesssons(Guid userId, int chapterId)
+        {
+            var result = new List<int>();
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/userprogress/{userId}/finished/{chapterId}");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var lessonNumbers = JsonConvert.DeserializeObject<int[]>(await response.Content.ReadAsStringAsync());
+                result.AddRange(lessonNumbers);
             }
 
             return result;

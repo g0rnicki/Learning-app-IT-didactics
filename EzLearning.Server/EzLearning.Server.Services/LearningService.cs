@@ -1,4 +1,5 @@
 ﻿using EzLearning.Server.Dal;
+using EzLearning.Server.Dal.Models;
 using EzLearning.Server.Services.Contracts;
 using EzLearning.Server.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -88,6 +89,15 @@ namespace EzLearning.Server.Services
             return Task.FromResult(queryResult.First());
         }
 
+        public Task<List<int>> GetLessonNumbersForFinishedChapterLesssons(Guid userId, int chapterId)
+        {
+            var query = from ufl in _ctx.userFinishedLessons
+                        where ufl.UserId == userId
+                        select ufl.LessonNumber;
+
+            return Task.FromResult(query.Distinct().ToList());
+        }
+
         public Task<List<LessonDto>> GetLessonsByChapterId(int chapterId)
         {
             var lessons = from l in _ctx.lessons
@@ -126,6 +136,28 @@ namespace EzLearning.Server.Services
                 CorrectAnswer = new AnswerDto { Id = q.CorrectAnswer.Id, AnswerContent = q.CorrectAnswer.Answer },
                 WrongAnswers = q.WrongAnswers.Select(wa => new AnswerDto { Id = wa.Id, AnswerContent = wa.Answer }).ToArray()
             }).First());
+        }
+
+        public Task<int> GetTotalLessonsFinished(Guid userId)
+        {
+            var query = from ufl in _ctx.userFinishedLessons
+                        where ufl.UserId == userId
+                        group ufl by new { ufl.UserId, ufl.LessonNumber } into g
+                        select g;
+            var count = query.Count();
+            return Task.FromResult(count);
+        }
+
+        public async Task SaveUserFinishedLesson(UserFinishedLessonDto userProgress)
+        {
+            var newRecord = new UserFinishedLesson
+            {
+                UserId = userProgress.UserId,
+                LessonNumber = userProgress.LessonNumber
+            };
+
+            await _ctx.userFinishedLessons.AddAsync(newRecord);
+            await _ctx.SaveChangesAsync();
         }
     }
 }

@@ -11,6 +11,7 @@ namespace EzLearning.Server.Dal
         public DbSet<ChapterTest> tests { get; set; }
         public DbSet<Question> questions { get; set; }
         public DbSet<QuestionAnswer> answers { get; set; }
+        public DbSet<UserFinishedLesson> userFinishedLessons { get; set; }
 
         public AppDataContext(DbContextOptions<AppDataContext> options) : base(options)
         {

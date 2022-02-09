@@ -38,7 +38,7 @@ namespace EzLearning.Server.Services
             }
             else
             {
-                return Task.FromResult(new LoginResult { IsSuccessfull = true, Token = GenerateJwtToken(queriedUser) });
+                return Task.FromResult(new LoginResult { IsSuccessfull = true, Token = GenerateJwtToken(queriedUser), UserId = queriedUser.Id });
             }
         }
 
