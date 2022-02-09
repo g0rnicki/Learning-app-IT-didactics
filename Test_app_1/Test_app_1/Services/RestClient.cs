@@ -13,6 +13,7 @@ namespace Test_app_1.Services
     {
         private readonly HttpClient _genericHttpClient;
         private HttpClient _authorizedHttpClient = null;
+        private string _username = string.Empty;
 
         private static readonly string serverAddress = "http://10.0.2.2:4040";
 
@@ -34,6 +35,7 @@ namespace Test_app_1.Services
             {
                 var result =  JsonConvert.DeserializeObject<LoginResult>(await response.Content.ReadAsStringAsync());
                 SetAuthorizedUser(result.Token);
+                _username = username;
                 return result;
             }
             else
@@ -67,12 +69,11 @@ namespace Test_app_1.Services
             }
         }
 
-
-
         public void Logout()
         {
             if (_authorizedHttpClient != null)
             {
+                _username = string.Empty;
                 _authorizedHttpClient.Dispose();
                 _authorizedHttpClient = null;
             }
@@ -183,6 +184,11 @@ namespace Test_app_1.Services
             }
 
             return result;
+        }
+
+        public string GetCurrentUsername()
+        {
+            return _username;
         }
     }
 }
