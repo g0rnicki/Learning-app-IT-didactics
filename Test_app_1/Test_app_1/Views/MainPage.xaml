@@ -6,10 +6,30 @@
                     Dark={StaticResource BackgroundColorDark}, 
                     Light={StaticResource BackgroundColor}}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Goodbye world"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Padding="30">
+            <Label x:Name="Greeting"
+                Text=""
+                VerticalOptions="Start" 
+                HorizontalOptions="CenterAndExpand" 
+                FontSize="Title"
+                Padding="50"/>
+            <Label
+                Text="Your progress so far:"
+                VerticalOptions="Start" 
+                HorizontalOptions="Start"
+                FontSize="Medium"/>
+            <Label x:Name="Statistic1"
+                Text=""
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            <Label x:Name="Statistic2"
+                Text=""
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
+            <Label x:Name="Statistic3"
+                Text=""
+                VerticalOptions="Start" 
+                HorizontalOptions="Start" />
         </StackLayout>
     </ContentPage.Content>
     <ContentPage.ToolbarItems>
