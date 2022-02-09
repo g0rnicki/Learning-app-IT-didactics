@@ -208,9 +208,18 @@ namespace Test_app_1.Services
             return _userID;
         }
 
-        public Task<int> GetTotalLessonsFinished(Guid userId)
+        public async Task<int?> GetTotalLessonsFinished(Guid userId)
         {
-            return Task.FromResult(42);
+            int? result = null;
+            var httpRequest = new HttpRequestMessage(HttpMethod.Get, $"{serverAddress}/api/learning/userprogress/{userId}");
+            var response = await _authorizedHttpClient.SendAsync(httpRequest);
+
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<int>(await response.Content.ReadAsStringAsync());
+            }
+
+            return result;
         }
     }
 }

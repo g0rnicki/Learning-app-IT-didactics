@@ -31,8 +31,11 @@ namespace Test_app_1.Views
             var username = _restClient.GetCurrentUsername();
 
             greeting.Text = $"Welcome {username}";
-            stat1.Text = $"Number of finished lessons: {totalLessonsFinished}";
 
+            if (totalLessonsFinished.HasValue)
+            {
+                stat1.Text = $"Number of finished lessons: {totalLessonsFinished.Value}";
+            }
         }
         private async void ToolbarItem_Clicked(object sender, EventArgs e)
         {
